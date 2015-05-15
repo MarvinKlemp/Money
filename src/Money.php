@@ -8,10 +8,19 @@ class Money
 
     protected $currency;
 
-    public function __construct($amount, Currency $currency)
+    private function __construct($amount, Currency $currency)
     {
         $this->amount = $amount;
         $this->currency = $currency;
+    }
+
+    public static function __callStatic($name, array $arguments)
+    {
+        if (!isset($arguments[0])) {
+            throw new \InvalidArgumentException("You have to provide an amount of money");
+        }
+
+        return new Money($arguments[0], new Currency($name));
     }
 
     public function remove($amount)
