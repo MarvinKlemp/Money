@@ -6,14 +6,17 @@ class Money
 {
     protected $amount;
 
-    public function __construct($amount)
+    protected $currency;
+
+    public function __construct($amount, Currency $currency)
     {
         $this->amount = $amount;
+        $this->currency = $currency;
     }
 
     public function remove($amount)
     {
-        return new Money($this->amount - $amount);
+        return new Money($this->amount - $amount, $this->currency);
     }
 
     public function amount()
@@ -23,6 +26,6 @@ class Money
 
     public function add($amount)
     {
-        return new Money($this->amount + $amount);
+        return new Money($this->amount + $amount, $this->currency);
     }
 }
