@@ -23,9 +23,22 @@ class Money
         return new Money($arguments[0], new Currency($name));
     }
 
-    public function remove($amount)
+    public function remove(Money $money)
     {
-        return new Money($this->amount - $amount, $this->currency);
+        if (!$this->currency->equals($money->currency)) {
+            throw new \RuntimeException("You can't remove different currencies");
+        }
+
+        return new Money($this->amount - $money->amount(), $this->currency);
+    }
+
+    public function add(Money $money)
+    {
+        if (!$this->currency->equals($money->currency)) {
+            throw new \RuntimeException("You can't add different currencies");
+        }
+
+        return new Money($this->amount + $money->amount(), $this->currency);
     }
 
     public function amount()
@@ -33,8 +46,8 @@ class Money
         return $this->amount;
     }
 
-    public function add($amount)
+    public function currency()
     {
-        return new Money($this->amount + $amount, $this->currency);
+        return $this->currency;
     }
 }

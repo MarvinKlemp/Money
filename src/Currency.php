@@ -10,4 +10,9 @@ class Currency
     {
         $this->name = $name;
     }
+
+    public function equals(Currency $currency)
+    {
+        return $this->name === $currency->name;
+    }
 }
