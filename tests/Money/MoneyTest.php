@@ -1,8 +1,8 @@
 <?php
 
-namespace MarvinKlemp\Money\Tests;
+namespace MarvinKlemp\Money\Tests\Money;
 
-use MarvinKlemp\Money\Money;
+use MarvinKlemp\Money\Money\Money;
 
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {

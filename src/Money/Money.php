@@ -1,6 +1,6 @@
 <?php
 
-namespace MarvinKlemp\Money;
+namespace MarvinKlemp\Money\Money;
 
 use MarvinKlemp\Money\Currency\Currency;
 
