@@ -10,19 +10,42 @@ class Currency
     protected $name;
 
     /**
-     * @param string $name
+     * @var string
      */
-    public function __construct($name)
+    protected $representation;
+
+    /**
+     * @param string $name
+     * @param string $representation
+     */
+    public function __construct($name, $representation)
     {
         $this->name = $name;
+        $this->representation = $representation;
     }
 
     /**
-     * @param Currency $currency
+     * @param  Currency $currency
      * @return bool
      */
     public function equals(Currency $currency)
     {
         return $this->name === $currency->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function representation()
+    {
+        return $this->representation;
     }
 }

@@ -17,7 +17,7 @@ class Money
     protected $currency;
 
     /**
-     * @param float $amount
+     * @param float    $amount
      * @param Currency $currency
      */
     private function __construct($amount, Currency $currency)
@@ -32,11 +32,11 @@ class Money
             throw new \InvalidArgumentException("You have to provide an amount of money");
         }
 
-        return new Money($arguments[0], new Currency($name));
+        return new Money($arguments[0], new Currency($name, "$"));
     }
 
     /**
-     * @param Money $money
+     * @param  Money $money
      * @return Money
      */
     public function remove(Money $money)
@@ -49,7 +49,7 @@ class Money
     }
 
     /**
-     * @param Money $money
+     * @param  Money $money
      * @return Money
      */
     public function add(Money $money)
