@@ -2,6 +2,8 @@
 
 namespace MarvinKlemp\Money;
 
+use MarvinKlemp\Money\Currency\Currency;
+
 interface CurrencyConverterInterface
 {
     /**

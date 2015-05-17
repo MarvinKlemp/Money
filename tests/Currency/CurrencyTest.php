@@ -2,7 +2,7 @@
 
 namespace MarvinKlemp\Money\Tests;
 
-use MarvinKlemp\Money\Currency;
+use MarvinKlemp\Money\Currency\Currency;
 
 class CurrencyTest extends \PHPUnit_Framework_TestCase
 {
