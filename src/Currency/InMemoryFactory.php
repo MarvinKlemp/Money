@@ -4,8 +4,14 @@ namespace MarvinKlemp\Money\Currency;
 
 class InMemoryFactory implements CurrencyFactoryInterface
 {
+    /**
+     * @var Currency[]
+     */
     protected $currencies;
 
+    /**
+     * @param Currency $currencies
+     */
     public function __construct(array $currencies)
     {
         $this->currencies = $currencies;
