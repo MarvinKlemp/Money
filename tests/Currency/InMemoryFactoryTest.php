@@ -15,7 +15,7 @@ class InMemoryFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(CurrencyFactoryInterface::class, $factory);
     }
 
-    public function test_it_should_build_currency_with_name()
+    public function test_it_should_factor_currency_with_name()
     {
         $factory = new InMemoryFactory(['USD' => '$']);
 
@@ -33,7 +33,7 @@ class InMemoryFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->withName('USD');
     }
 
-    public function test_it_should_build_currency_with_representation()
+    public function test_it_should_factor_currency_with_representation()
     {
         $factory = new InMemoryFactory(['USD' => '$']);
 

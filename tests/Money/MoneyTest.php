@@ -2,66 +2,87 @@
 
 namespace MarvinKlemp\Money\Tests\Money;
 
+use MarvinKlemp\Money\Currency\Currency;
 use MarvinKlemp\Money\Money\Money;
 
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {
     public function test_it_should_be_initializable()
     {
-        $money = Money::USD(10);
-        $this->assertInstanceOf(Money::class, $money);
-    }
-
-    public function test_it_should_throw_an_invalid_argument_exception_on_construct()
-    {
-        $this->setExpectedException(\InvalidArgumentException::class, "You have to provide an amount of money");
-        $money = Money::USD();
+        $money = new Money(10, $this->getCurrencyDummy());
         $this->assertInstanceOf(Money::class, $money);
     }
 
     public function test_it_should_be_immutable()
     {
-        $money = Money::USD(10);
+        $stub = $this->getCurrencyDummy();
+        $stub->expects($this->any())
+            ->method('equals')
+            ->willReturn(true);
+
+        $money = new Money(10, $stub);
         $moneyClone = clone($money);
 
         $this->assertEquals($money, $moneyClone);
 
-        $money->remove(Money::USD(5));
+        $money->remove(new Money(10, $this->getCurrencyDummy()));
         $this->assertEquals($money, $moneyClone);
 
-        $money->add(Money::USD(5));
+        $money->add(new Money(10, $this->getCurrencyDummy()));
         $this->assertEquals($money, $moneyClone);
     }
 
+    // hier
     public function test_it_should_be_able_remove_a_given_amount()
     {
-        $money = Money::USD(10);
+        $stub = $this->getCurrencyDummy();
+        $stub->expects($this->once())
+            ->method('equals')
+            ->willReturn(true);
+        $money = new Money(10, $stub);
 
-        $money = $money->remove(Money::USD(5));
+        $money = $money->remove(new Money(5, $this->getCurrencyDummy()));
         $this->assertEquals(5, $money->amount());
     }
 
     public function test_it_should_not_remove_different_currencies()
     {
-        $money = Money::USD(10);
+        $stub = $this->getCurrencyDummy();
+        $stub->expects($this->once())
+            ->method('equals')
+            ->willReturn(false);
+        $money = new Money(10, $stub);
 
         $this->setExpectedException(\RuntimeException::class, "You can't remove different currencies");
-        $money->remove(Money::Euro(5));
+        $money->remove(new Money(5, $this->getCurrencyDummy()));
     }
 
     public function test_it_should_not_add_different_currencies()
     {
-        $money = Money::USD(10);
+        $stub = $this->getCurrencyDummy();
+        $stub->expects($this->once())
+            ->method('equals')
+            ->willReturn(false);
+        $money = new Money(10, $stub);
 
         $this->setExpectedException(\RuntimeException::class, "You can't add different currencies");
-        $money->add(Money::Euro(5));
+        $money->add(new Money(5, $this->getCurrencyDummy()));
     }
 
     public function test_it_should_be_able_add_a_given_amount()
     {
-        $money = Money::USD(5);
+        $stub = $this->getCurrencyDummy();
+        $stub->expects($this->once())
+            ->method('equals')
+            ->willReturn(true);
+        $money = new Money(10, $stub);
 
-        $money = $money->add(Money::USD(5));
-        $this->assertEquals(10, $money->amount());
+        $money = $money->add(new Money(5, $this->getCurrencyDummy()));
+        $this->assertEquals(15, $money->amount());
+    }
+
+    private function getCurrencyDummy()
+    {
+        return $this->getMockBuilder(Currency::class)->disableOriginalConstructor()->getMock();
     }
 }

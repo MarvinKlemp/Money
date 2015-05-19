@@ -32,18 +32,12 @@ class InMemoryFactory implements CurrencyFactoryInterface
      */
     public function withRepresentation($representation)
     {
-        $match = 0;
-        foreach ($this->currencies as $key => $val) {
-            if ($val === $representation) {
-                $match = 1;
-                break;
-            }
-        }
+        $key = array_search($representation, $this->currencies);
 
-        if ($match === 0) {
+        if ($key === false || $key === null) {
             throw new UnsupportedCurrencyException();
         }
 
-        return new Currency($key, $val);
+        return new Currency($key, $representation);
     }
 }
